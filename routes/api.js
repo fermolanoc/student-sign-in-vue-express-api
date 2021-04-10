@@ -11,8 +11,11 @@ router.get("/students", function (req, res, next) {
   });
 });
 
+// define url route to create a new student
 router.post("/students", function (req, res, next) {
   Student.create(req.body).then((data) => {
     return res.status(201).send("Student created!");
   });
 });
+
+module.exports = router;
