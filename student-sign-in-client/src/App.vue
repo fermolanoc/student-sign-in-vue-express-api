@@ -39,12 +39,24 @@ export default {
     updateStudents() {
       this.$student_api.getAllStudents().then(students => {
         this.students = students
-      })
+      }).catch(() => alert('Unable to fetch student list'))
     },
     // function to add each new student to Array and order the list alphabetically
     newStudentAdded(student) {
       this.$student_api.addStudent(student).then( () => {
         this.updateStudents()
+        })
+        // handle error when starID is duplicated or doesn't pass validation
+        .catch(err => {
+          if (err.response.data && Array.isArray(err.response.data)) {
+
+            // show error messages to user
+          let msg = err.response.data.join('\n')
+          alert('Error addding student\n' + msg)
+          } else {
+            // something else failed, display generic error message
+            alert('Sorry, unable to add student')
+          }
       })
     },
 
@@ -54,7 +66,7 @@ export default {
       this.$student_api.updateStudent(student).then( () => {
         this.mostRecentStudent = student
         this.updateStudents() // get all students updated data
-      })
+      }).catch(() => alert('Unable to update student'))
     },
 
     // create a new array copy using filter with all the students except the one we're passing as parameter
@@ -62,7 +74,7 @@ export default {
       this.$student_api.deleteStudent(student.id).then(() => {
         this.updateStudents() //refresh webpage with update list of students
         this.mostRecentStudent = {} // clear welcome/goodye message
-      })
+      }).catch(() => alert('Unable to delete student'))
     }
   }
 }
