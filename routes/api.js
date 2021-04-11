@@ -18,4 +18,17 @@ router.post("/students", function (req, res, next) {
   });
 });
 
+// edit a student - get personalize url based on student id to be edited
+router.patch("/students/:id", function (req, res, next) {
+  let studentID = req.params.id; // get student id
+  let updatedStudent = req.body; // get updated data
+  // update the student data only on record that match student id
+  // because of DB settings, only one record should match since starID is unique
+  Student.update(updatedStudent, { where: { id: studentID } }).then(() => {
+    return res.send("Ok");
+  });
+});
+
+// delete student
+
 module.exports = router;

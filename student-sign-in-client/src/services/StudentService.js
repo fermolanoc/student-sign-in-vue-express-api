@@ -16,4 +16,14 @@ export default {
       return response.data;
     });
   },
+
+  // handle update student request
+  updateStudent(student) {
+    //   create personalized url based on student ID
+    return axios
+      .patch(`${base_url}/${student.id}`, student)
+      .then((response) => {
+        return response.data;
+      });
+  },
 };

@@ -50,7 +50,11 @@ export default {
 
     // function to 
     studentArrivedOrLeft(student, present) {
-      
+      student.present = present // update present value
+      this.$student_api.updateStudent(student).then( () => {
+        this.mostRecentStudent = student
+        this.updateStudents() // get all students updated data
+      })
     },
 
     // create a new array copy using filter with all the students except the one we're passing as parameter
