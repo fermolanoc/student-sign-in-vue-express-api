@@ -30,5 +30,11 @@ router.patch("/students/:id", function (req, res, next) {
 });
 
 // delete student
+router.delete("students/:id", function (req, res, next) {
+  let studentID = req.params.id;
+  Student.destroy({ where: { id: studentID } }).then(() => {
+    return res.send("Deleted");
+  });
+});
 
 module.exports = router;

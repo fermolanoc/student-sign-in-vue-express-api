@@ -26,4 +26,11 @@ export default {
         return response.data;
       });
   },
+
+  // handle student deletion based on student id
+  deleteStudent(id) {
+    return axios.delete(`${base_url}/${id}`).then((response) => {
+      return response.data;
+    });
+  },
 };

@@ -59,7 +59,10 @@ export default {
 
     // create a new array copy using filter with all the students except the one we're passing as parameter
     studentDeleted(student) {
-      
+      this.$student_api.deleteStudent(student.id).then(() => {
+        this.updateStudents() //refresh webpage with update list of students
+        this.mostRecentStudent = {} // clear welcome/goodye message
+      })
     }
   }
 }
