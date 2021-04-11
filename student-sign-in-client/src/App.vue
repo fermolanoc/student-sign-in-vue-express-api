@@ -30,40 +30,32 @@ export default {
       mostRecentStudent: {}
     }
   },
+  mounted() {
+    // request api - load all the students
+    this.updateStudents()
+  },
   methods: {
+    // get all the students info updated
+    updateStudents() {
+      this.$student_api.getAllStudents().then(students => {
+        this.students = students
+      })
+    },
     // function to add each new student to Array and order the list alphabetically
     newStudentAdded(student) {
-      this.students.push(student) // add student to array
-      this.students.sort(function (s1, s2){
-        // compare lowercase version of each student name, return a 1 or -1 as a result to sort them
-        return s1.name.toLowerCase() > s2.name.toLowerCase() ? 1 : -1
+      this.$student_api.addStudent(student).then( () => {
+        this.updateStudents()
       })
     },
 
     // function to 
     studentArrivedOrLeft(student, present) {
-      // find the student
-      let updateStudent = this.students.find(s => {
-        if (s.name === student.name && s.starID === student.starID) {
-          return true;
-        }
-      })
-
-      // update present attribute and add student to mostRecentStudent to be mentioned on screen
-      if (updateStudent) {
-        updateStudent.present = present
-        this.mostRecentStudent = updateStudent
-      }
+      
     },
 
     // create a new array copy using filter with all the students except the one we're passing as parameter
     studentDeleted(student) {
-      this.students = this.students.filter(s => {
-        if (s != student) {
-          return true
-        }
-      })
-      this.mostRecentStudent = {} // clean mostRecentStudent object
+      
     }
   }
 }

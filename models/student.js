@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // force = true will delete the table every times app restarts, and will create the table and attributes again
-  Student.sync({ force: true }).then(() => {
+  Student.sync({ force: false }).then(() => {
     console.log("Synced student table");
   });
 
