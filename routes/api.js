@@ -6,9 +6,9 @@ let router = express.Router();
 
 // when accessing the base url/students we'll get the list of all students in json format
 router.get("/students", function (req, res, next) {
-  // sort the students, first by present status (not present first) then by name regardless of case
+  // sort the students, first by present status (not present first) then by starID
   Student.findAll({
-    order: ["present", db.Sequelize.fn("lower", db.Sequelize.col("name"))],
+    order: ["present", "starID"],
   })
     .then((students) => {
       return res.json(students);
